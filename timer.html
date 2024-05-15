@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+        body{
+            font-family: 'Nunito Sans';
+        }
+
+        #countdown{
+	width: 465px;
+	height: 112px;
+	text-align: center;
+	border-radius: 5px;
+	margin: auto;
+	padding: 24px 0;
+}
+
+#countdown #tiles{
+	position: relative;
+	z-index: 1;
+}
+
+#countdown #tiles > span{
+	width: 92px;
+	max-width: 92px;
+	font: bold 48px 'Droid Sans', Arial, sans-serif;
+	text-align: center;
+	color: #111;
+	margin: 0 7px;
+	padding: 18px 0;
+	display: inline-block;
+	position: relative;
+}
+
+#countdown .labels{
+	width: 100%;
+	height: 25px;
+	text-align: center;
+	bottom: 8px;
+}
+
+#countdown .labels li{
+	width: 102px;
+	font: bold 15px ;
+	text-align: center;
+	display: inline-block;
+}
+.main_cnt{
+    display: grid;
+    grid-template-columns: 30% 30% 40%;
+}
+    </style>
+</head>
+<body>
+    
+
+    <div class="main_cnt">
+        <div>ddd</div>
+        <div>ss</div>
+        <div id="countdown">
+            <div id='tiles'></div>
+            <div class="labels">
+              <li>Days</li>
+              <li>Hours</li>
+              <li>Mins</li>
+              <li>Secs</li>
+            </div>
+        </div>
+    </div>
+
+
+
+      <script>
+        var target_date = new Date().getTime() + (1000*3600*48); // set the countdown date
+var days, hours, minutes, seconds; // variables for time units
+
+var countdown = document.getElementById("tiles"); // get tag element
+
+getCountdown();
+
+setInterval(function () { getCountdown(); }, 1000);
+
+function getCountdown(){
+
+	// find the amount of "seconds" between now and target
+	var current_date = new Date().getTime();
+	var seconds_left = (target_date - current_date) / 1000;
+
+	days = pad( parseInt(seconds_left / 86400) );
+	seconds_left = seconds_left % 86400;
+		 
+	hours = pad( parseInt(seconds_left / 3600) );
+	seconds_left = seconds_left % 3600;
+		  
+	minutes = pad( parseInt(seconds_left / 60) );
+	seconds = pad( parseInt( seconds_left % 60 ) );
+
+	// format countdown string + set tag value
+	countdown.innerHTML = "<span>" + days + "</span><span>" + hours + "</span><span>" + minutes + "</span><span>" + seconds + "</span>"; 
+}
+
+function pad(n) {
+	return (n < 10 ? '0' : '') + n;
+}
+
+
+      </script>
+</body>
+</html>
